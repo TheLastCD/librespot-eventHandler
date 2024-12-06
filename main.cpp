@@ -2,18 +2,14 @@
 #include <cstdlib> // For std::getenv
 //#include <stdexcept> // For std::logic_error
 #include <string>
-#include "src/headers/Track.h"
-#include "src/headers/env.h"
-#include "src/env.cpp"
+#include "headers/meta.h"
+#include "headers/env.h"
+#include "headers/event.h"  
 
 int main() {
 
     // Local variables
     const std::string Debug = "INFO";
-
-
-
-
 
     
 
@@ -23,11 +19,7 @@ int main() {
         return 1; // Exit with error code
     }
     
-    // if (cEnvTrackName) {
-    //     std::cout << "Header: " << cEnvTrackName << std::endl;
-    // } else {
-    //     std::cout << "TRACK_ID is not set." << std::endl;
-    // }
+
 
     // Convert C-style strings to std::string safely
     // event
@@ -38,9 +30,12 @@ int main() {
     std::string sTrackName = cEnvTrackName ? cEnvTrackName : "Unknown Track Name";
     std::string sArtistName = cEnvArtistName ? cEnvArtistName : cEnvAlbumArtists ? cEnvAlbumArtists: "Unknown Artist"; // catch potential artist name not being present, experiment with ordering 
     std::string sAlbumName = cEnvAlbumName ? cEnvAlbumName : "Unknown Album";
-
-
-
+    
+    struct SSession{
+        //possibly superfluous but adding just in case
+        std::string m_UserName;
+        std::string m_Connection_ID;
+    };
 
     struct SClient {
         std::string m_ClientID;
@@ -53,19 +48,26 @@ int main() {
         std::string m_Shuffle;
         std::string m_Repeat;
         std::string m_AutoPlay;
-        std::string Filter;
+        std::string m_ExplictFilter;
     };
 
-    // Handle events based on PLAYER_EVENT value
-    if (sEvent == "start" || sEvent == "track_changed"){
-        std::cout << "Playback started: " << sTrackName << " by " << sArtistName << std::endl;
-    } else if (sEvent == "stop") {
-        std::cout << "Playback stopped" << std::endl;
-    } else if (sEvent == "playing"){
-        std::cout << "Playing audio" << sTrackName << std::endl;
+    PlaybackEvent event = stringToEvent(sEvent);
 
-    }else {
-        std::cout << "Unknown sEvent: " << sEvent << std::endl;
+    switch (event) {
+        case PlaybackEvent::Start:
+        case PlaybackEvent::TrackChanged:
+            std::cout << "Playback started: " << sTrackName << " by " << sArtistName << std::endl;
+            break;
+        case PlaybackEvent::Stop:
+            std::cout << "Playback stopped" << std::endl;
+            break;
+        case PlaybackEvent::Playing:
+            std::cout << "Playing audio " << sTrackName << std::endl;
+            break;
+        case PlaybackEvent::Unknown:
+        default:
+            std::cout << "Unknown event: " << sEvent << std::endl;
+            break;
     }
 
 

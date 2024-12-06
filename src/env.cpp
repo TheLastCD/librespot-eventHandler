@@ -1,7 +1,7 @@
 #include <cstdlib> // For std::getenv
 
 //header imports
-#include "headers/env.h"
+#include "../headers/env.h"
 
 
 // Retrieve environment variables
@@ -33,3 +33,10 @@ const char* cEnvShowDesc = std::getenv("DESCRIPTION");
 // Misc    
 const char* cEnvDiscNumber = std::getenv("DISC_NUMBER");
 const char* cEnvPopularity = std::getenv("POPULARITY");
+
+
+
+
+// bool ValidEvent(char* *cEnvPlayerEvent){
+
+// };

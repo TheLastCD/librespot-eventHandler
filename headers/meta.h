@@ -12,3 +12,14 @@
         std::string m_AlbumName;
 
     };
+
+    struct SEpisode {
+        std::string m_ShowName;
+        std::string m_PublishTime;
+        std::string m_Desc;
+    };
+
+    struct SPlaying{
+        std::string m_TrackID;
+        std::string m_PositionMs;
+    };
