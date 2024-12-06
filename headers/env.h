@@ -1,6 +1,4 @@
-// env.h
-#ifndef ENV_H
-#define ENV_H
+
 
 extern const char* cEnvPlayerEvent;
 extern const char* cEnvItemType;
@@ -28,6 +26,8 @@ extern const char* cEnvShowDesc;
 // Misc    
 extern const char* cEnvDiscNumber;
 extern const char* cEnvPopularity;
+extern const char* cEnvPosition;
+extern const char* cEnvUsername;
+extern const char* cEnvConnectionID;
 
 
-#endif // ENV_VARIABLES_H

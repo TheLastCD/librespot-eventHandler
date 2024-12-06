@@ -1,40 +1,62 @@
+#include <
+
 #include "../headers/event.h"
+#include "../headers/env.h"
+
 #include <string>
+#include <unordered_map>
 #include <iostream>
 
 
-// Helper function to convert string to enum
+
+
 PlaybackEvent stringToEvent(const std::string& sEvent) {
-    if (sEvent == "start" || sEvent == "track_changed") return PlaybackEvent::Start;
-    if (sEvent == "stop") return PlaybackEvent::Stop;
-    if (sEvent == "playing") return PlaybackEvent::Playing;
-    if (sEvent == "paused") return PlaybackEvent::Paused;
-    if (sEvent == "volume_changed") return PlaybackEvent::VolumeChanged;
-    if (sEvent == "session_connected") return PlaybackEvent::Connected;
-    if (sEvent == "session_disconnected") return PlaybackEvent::Disconnected;
-    if (sEvent == "loading") return PlaybackEvent::Loading;
-    return PlaybackEvent::Unknown;
+
+    // Trim whitespace from the input string
+    std::string trimmedEvent = sEvent;
+    trimmedEvent.erase(trimmedEvent.find_last_not_of(" \t\n\r\f\v") + 1);
+
+    auto it = NonBlockingEventMap.find(trimmedEvent);
+    return (it != NonBlockingEventMap.end()) ? it->second : PlaybackEvent::Unknown;
 }
 
 
 // Function to handle playback events
-void handlePlaybackEvent(const std::string& sEvent, const std::string& sTrackName, const std::string& sArtistName) {
+void handlePlaybackEvent(const std::string& sEvent) {
     PlaybackEvent event = stringToEvent(sEvent);
-
+    std::cout << "Received event: " << sEvent << std::endl;
+    SPlayPauseSeek sPlayPauseSeek;
+    SSession sSession;
     switch (event) {
-        case PlaybackEvent::Start:
-        case PlaybackEvent::TrackChanged:
-            std::cout << "Playback started: " << sTrackName << " by " << sArtistName << std::endl;
+        case PlaybackEvent::ConDisConnected:
+            sSession = {
+                cEnvUsername ? cEnvUsername : "Unknown",
+                cEnvConnectionID ? cEnvConnectionID : "Unknown"
+            };
             break;
-        case PlaybackEvent::Stop:
-            std::cout << "Playback stopped" << std::endl;
+            
+        case PlaybackEvent::PlayingPaused:
+            sPlayPauseSeek = {
+                cEnvTrackId ? cEnvTrackId : "Unknown",
+                cEnvPosition ? cEnvShowPubTime :"0"
+            };
             break;
-        case PlaybackEvent::Playing:
-            std::cout << "Playing audio " << sTrackName << std::endl;
+
+        case PlaybackEvent::TrackChanging:
+
             break;
+        case PlaybackEvent::VolumeChanged:
+
+            break;
+        case PlaybackEvent::Shuffle:
+
+            break;
+
+        
         case PlaybackEvent::Unknown:
+            break;
+
         default:
-            std::cout << "Unknown event: " << sEvent << std::endl;
             break;
     }
 }
