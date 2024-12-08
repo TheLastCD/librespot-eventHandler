@@ -1,7 +1,10 @@
 #include <iostream>
 #include <cstdlib> // For std::getenv
 #include <string>
-
+#include "lib/curlpp/.gitignore"
+#include "lib/curlpp/include/curlpp/cURLpp.hpp" 
+// #include "lib/curlpp/include/curlpp/Easy.hpp"
+// #include "lib/curlpp/include/curlpp/Options.hpp"      
 #include "lib/json/single_include/nlohmann/json.hpp"
 
 #include "headers/env.h"
