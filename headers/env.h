@@ -1,4 +1,10 @@
+//External Libraries
 
+// Internal Headers
+
+// Built-in Libraries
+
+#include <cstdlib>
 //TODO format to follow wiki structure
 
 extern const char* cEnvPlayerEvent;
@@ -9,6 +15,7 @@ extern const char* cEnvTrackId;
 extern const char* cEnvTrackName;
 extern const char* cEnvTrackNumber;
 extern const char* cEnvTrackLength;
+// extern const char* cEnvTrackCover;
 extern const char* cEnvTrackCover;
 extern const char* cEnvTrackURI;
 extern const char* cEnvTrackExplicit;
@@ -57,3 +64,4 @@ extern const char* cEnvFilter;
 
 //Blocking events
 extern const char* cEnvSinkStatus;
+

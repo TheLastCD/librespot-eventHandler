@@ -20,10 +20,10 @@ int main() {
     std::string sEvent(cEnvPlayerEvent);
 
     // track specific 
-    std::string sTrackId = cEnvTrackId ? cEnvTrackId : "Unknown Track ID";
-    std::string sTrackName = cEnvTrackName ? cEnvTrackName : "Unknown Track Name";
-    std::string sArtistName = cEnvArtistName ? cEnvArtistName : cEnvAlbumArtists ? cEnvAlbumArtists: "Unknown Artist"; // catch potential artist name not being present, experiment with ordering 
-    std::string sAlbumName = cEnvAlbumName ? cEnvAlbumName : "Unknown Album";
+    // std::string sTrackId = cEnvTrackId ? cEnvTrackId : "Unknown Track ID";
+    // std::string sTrackName = cEnvTrackName ? cEnvTrackName : "Unknown Track Name";
+    // std::string sArtistName = cEnvArtistName ? cEnvArtistName : cEnvAlbumArtists ? cEnvAlbumArtists: "Unknown Artist"; // catch potential artist name not being present, experiment with ordering 
+    // std::string sAlbumName = cEnvAlbumName ? cEnvAlbumName : "Unknown Album";
     
 
     std::string SinkStatus;

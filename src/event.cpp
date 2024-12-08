@@ -1,20 +1,30 @@
-// #include "../lib/json/single_include/nlohmann/json.hpp"
+
 
 #include "../headers/event.h"
-// #include "../headers/env.h"
 
-// #include <string>
-// #include <unordered_map>
-// #include <iostream>
-
+//TODO: see if this can be optimised with std::string_view
 ItemType TrackMap(const std::string& cEnvItemType) {
     if (cEnvItemType == "Track") return ItemType::Track;
     else if (cEnvItemType == "Episode") return ItemType::Episode;
     else return ItemType::Unknown  ;
 };
 
+std::vector<std::string> SplitUrls(const std::string& input) {
+    std::vector<std::string> urls;
+    std::istringstream iss(input);
+    std::string url;
+    
+    while (std::getline(iss, url, '\n')) {
+        if (!url.empty()) {
+            urls.push_back(url);
+        }
+    }
+    
+    return urls;
+};
 
-PlaybackEvent stringToEvent(const std::string& sEvent) {
+
+PlaybackEvent StringToEvent(const std::string& sEvent) {
 
     // Trim whitespace from the input string
     std::string trimmedEvent = sEvent;
@@ -30,7 +40,7 @@ std::string nullHandler(const char* value, const std::string& defaultValue) {
 
 // Function to handle playback events
 nlohmann::json handlePlaybackEvent(const std::string& sEvent) {
-    PlaybackEvent event = stringToEvent(sEvent);
+    PlaybackEvent event = StringToEvent(sEvent);
     
     nlohmann::json payload;
 
@@ -55,7 +65,8 @@ nlohmann::json handlePlaybackEvent(const std::string& sEvent) {
             payload["id"] = nullHandler(cEnvTrackId, "Unknown");
             payload["name"] = nullHandler(cEnvTrackName, "Unknown");
             payload["length"] = nullHandler(cEnvTrackLength, "0");
-            payload["cover"] = nullHandler(cEnvTrackCover, "Unknown");
+
+            payload["cover"] = SplitUrls(nullHandler( cEnvTrackCover , "Unknown"));
             payload["uri"] = nullHandler(cEnvTrackURI, "Unknown");
             payload["explicit"] = nullHandler(cEnvTrackExplicit, "0");
             payload["language"] = nullHandler(cEnvTrackLang, "en"); // match format

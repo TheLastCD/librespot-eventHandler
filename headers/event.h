@@ -1,10 +1,16 @@
+//External Libraries
 #include "../lib/json/single_include/nlohmann/json.hpp"
 
+//Internal Headers
 #include "../headers/env.h"
 
+//Built-in Libraries
 #include <string>
 #include <unordered_map>
 #include <iostream>
+#include <sstream>
+#include <vector>
+
 
 
 enum class PlaybackEvent {
@@ -59,5 +65,6 @@ static const std::unordered_map<std::string, PlaybackEvent> EventMap  = {
 
 ItemType TrackMap(const std::string& cEnvItemType);
 std::string nullHandler(const char* value, const std::string& defaultValue);
-PlaybackEvent stringToEvent(const std::string& sEvent);
+PlaybackEvent StringToEvent(const std::string& sEvent);
 nlohmann::json handlePlaybackEvent(const std::string& sEvent);
+std::vector<std::string> SplitUrls(const std::string& input); // used to parse the potential for multiple urls's sent by spotify
