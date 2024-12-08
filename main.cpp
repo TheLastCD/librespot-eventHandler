@@ -1,8 +1,9 @@
 #include <iostream>
 #include <cstdlib> // For std::getenv
-//#include <stdexcept> // For std::logic_error
 #include <string>
-#include "headers/meta.h"
+
+#include "lib/json/single_include/nlohmann/json.hpp"
+
 #include "headers/env.h"
 #include "headers/event.h"  
 
@@ -27,9 +28,8 @@ int main() {
 
     std::string SinkStatus;
 
-    handlePlaybackEvent(sEvent);
-
-
+    nlohmann::json payload = handlePlaybackEvent(sEvent);
+    std::cout << payload.dump() << std::endl;
 
     return 0; // Exit successfully
 }

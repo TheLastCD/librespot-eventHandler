@@ -1,2 +1,3 @@
 @echo Building...
+
 g++ .\src\* .\main.cpp -o out -lstdc++

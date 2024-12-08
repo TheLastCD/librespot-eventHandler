@@ -1,52 +1,38 @@
+#include "../lib/json/single_include/nlohmann/json.hpp"
 
-#include <unordered_map>
+#include "../headers/env.h"
+
 #include <string>
+#include <unordered_map>
+#include <iostream>
 
 
 enum class PlaybackEvent {
     ConDisConnected,
     PlayingPaused,
     SessionClientChanged,
-    TrackChanging,
+    TrackChanged, //this one expects metadata
+    TrackStateChanging, // this one does not
     VolumeChanged,
     Shuffle,
     Repeat,
     Filter,
     AutoPlay,
-    TrackChanged,
     Blocking,
     Unknown
 };
 
-
-struct SSession{
-    //possibly superfluous but adding just in case
-    std::string m_UserName;
-    std::string m_Connection_ID;
-};
-
-struct SClient {
-    std::string m_ClientID;
-    std::string m_ClientName;
-    std::string m_ClientBrandName;
-    std::string m_ClientModelName; 
-};
-
-struct SSpotifySettings {
-    std::string m_Shuffle;
-    std::string m_Repeat;
-    std::string m_AutoPlay;
-    std::string m_ExplictFilter;
-};
-
-struct SPlayPauseSeek {
-    std::string m_TrackID;
-    std::string m_PositionMS;
+enum class ItemType {
+    Track,
+    Episode,
+    Unknown
 };
 
 
 
-static const std::unordered_map<std::string, PlaybackEvent> NonBlockingEventMap  = {
+
+
+static const std::unordered_map<std::string, PlaybackEvent> EventMap  = {
     {"session_connected", PlaybackEvent::ConDisConnected},
     {"session_disconnected", PlaybackEvent::ConDisConnected},
     {"session_client_changed", PlaybackEvent::SessionClientChanged},
@@ -57,16 +43,21 @@ static const std::unordered_map<std::string, PlaybackEvent> NonBlockingEventMap 
     {"auto_play_changed", PlaybackEvent::AutoPlay},
     {"track_changed", PlaybackEvent::TrackChanged},
     {"play", PlaybackEvent::PlayingPaused},
+    {"playing", PlaybackEvent::PlayingPaused},
     {"pause", PlaybackEvent::PlayingPaused},
     {"seeked", PlaybackEvent::PlayingPaused},
     {"position_correction", PlaybackEvent::PlayingPaused},
-    {"unavailable", PlaybackEvent::TrackChanging},
-    {"end_of_track", PlaybackEvent::TrackChanging},
-    {"preload_next", PlaybackEvent::TrackChanging},
-    {"preloading", PlaybackEvent::TrackChanging},
-    {"loading", PlaybackEvent::TrackChanging},
-    {"stopped", PlaybackEvent::TrackChanging}
+    {"unavailable", PlaybackEvent::TrackStateChanging},
+    {"end_of_track", PlaybackEvent::TrackStateChanging},
+    {"preload_next", PlaybackEvent::TrackStateChanging},
+    {"preloading", PlaybackEvent::TrackStateChanging},
+    {"loading", PlaybackEvent::TrackStateChanging},
+    {"stopped", PlaybackEvent::TrackStateChanging},
+    {"sink", PlaybackEvent::Blocking}
 };
 
+
+ItemType TrackMap(const std::string& cEnvItemType);
+std::string nullHandler(const char* value, const std::string& defaultValue);
 PlaybackEvent stringToEvent(const std::string& sEvent);
-void handlePlaybackEvent(const std::string& sEven);
+nlohmann::json handlePlaybackEvent(const std::string& sEvent);

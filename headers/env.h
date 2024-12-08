@@ -1,4 +1,5 @@
 
+//TODO format to follow wiki structure
 
 extern const char* cEnvPlayerEvent;
 extern const char* cEnvItemType;
@@ -31,3 +32,28 @@ extern const char* cEnvUsername;
 extern const char* cEnvConnectionID;
 
 
+
+//client specific 
+extern const char* cEnvClientID;
+extern const char* cEnvClientName;
+extern const char* cEnvClientBrand; // client device brand IE google (I think)
+extern const char* cEnvModel; // model of device IE pixel 9
+
+// volume specific
+extern const char* cEnvVolume;
+
+// Shuffle specific
+extern const char* cEnvShuffle;
+
+// Repeat Specific
+extern const char* cEnvRepeat;
+
+// Auto Play Specific
+// not currently working see: https://github.com/librespot-org/librespot/issues/1411
+extern const char* cEnvAutoPlay ;
+
+// Explicit Specific
+extern const char* cEnvFilter;
+
+//Blocking events
+extern const char* cEnvSinkStatus;

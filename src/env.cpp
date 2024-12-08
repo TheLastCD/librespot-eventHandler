@@ -19,12 +19,13 @@ const char* cEnvTrackExplicit = std::getenv("IS_EXPLICIT");
 const char* cEnvTrackLang = std::getenv("LANGUAGE");
 
 // Track Specific 
-const char* cEnvArtistName = std::getenv("ARTISTS");
-const char* cEnvAlbumArtists = std::getenv("ALBUM_ARTISTS");
 const char* cEnvTrackNumber = std::getenv("NUMBER");
-const char* cEnvAlbumName = std::getenv("ALBUM_NAME");
 const char* cEnvDiscNumber = std::getenv("DISC_NUMBER");
 const char* cEnvPopularity = std::getenv("POPULARITY");
+
+const char* cEnvArtistName = std::getenv("ARTISTS");
+const char* cEnvAlbumArtists = std::getenv("ALBUM_ARTISTS");
+const char* cEnvAlbumName = std::getenv("ALBUM_NAME");
 
 // Podcast/ Episode Specific
 const char* cEnvShowName = std::getenv("SHOW_NAME");
@@ -62,7 +63,10 @@ const char* cEnvShuffle = std::getenv("SHUFFLE");
 const char* cEnvRepeat = std::getenv("REPEAT");
 
 // Auto Play Specific
+// not currently working see: https://github.com/librespot-org/librespot/issues/1411
 const char* cEnvAutoPlay = std::getenv("AUTO_PLAY");
 
 // Explicit Specific
 const char* cEnvFilter = std::getenv("FILTER");
+
+const char* cEnvSinkStatus = std::getenv("SINK_STATUS");
