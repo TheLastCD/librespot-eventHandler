@@ -68,7 +68,7 @@ nlohmann::json handlePlaybackEvent(const std::string& sEvent) {
 
             payload["cover"] = SplitUrls(nullHandler( cEnvTrackCover , "Unknown"));
             payload["uri"] = nullHandler(cEnvTrackURI, "Unknown");
-            payload["explicit"] = nullHandler(cEnvTrackExplicit, "0");
+            payload["explicitLyrics"] = nullHandler(cEnvTrackExplicit, "0");
             payload["language"] = nullHandler(cEnvTrackLang, "en"); // match format
 
             //Music Track Specific
